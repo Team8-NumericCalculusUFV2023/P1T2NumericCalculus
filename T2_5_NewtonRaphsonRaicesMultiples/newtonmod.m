@@ -13,9 +13,9 @@ function [xs, i] = newtonmod (f,xest,ermax)
     
     xs = xest - fxest * df1xest / (df2xest^2 - fxest * df2xest);
 
-    err_it = abs((xs - xest) / xest);
+    erit = abs((xs - xest) / xest);
     i = 1;
-    while err_it > ermax && f(xs) ~= 0
+    while erit > ermax && f(xs) ~= 0
         xest = xs;
 
         fxest = f(xest);
@@ -24,7 +24,8 @@ function [xs, i] = newtonmod (f,xest,ermax)
 
         xs = xest - fxest * df1xest / (df2xest^2 - fxest * df2xest);
 
-        err_it = abs((xs - xest) / xest);
+        erit = abs((xs - xest) / xest);
         i = i+1;
+        fprintf("erit: %.6f => ermax: %.6f\n", erit, ermax);
     end
 end
