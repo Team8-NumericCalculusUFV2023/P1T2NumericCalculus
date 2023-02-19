@@ -4,20 +4,16 @@ function r = nrsis(funs, x, ermax)
     % Se calculará el jacobiano solo en la primera iteración, se asume que 
     % podemos despreciar los cambios de las siguientes iteraciones por ser
     % el punto x cercano a la solución.
-    xvars = symvar(funs(1));
-    J = matlabFunction(jacobian(funs, xvars));
-    b = matlabFunction(funs);
-    % Trabajamos en columna
-    x = num2cell(x'); % Convertimos a celda para pasar los argumentos x a J
-    delta = linsolve(J(x{:}), -b(x{:}));
-    x = cell2mat(x); % Convertimos de nuevo a vector columna para sumar
-    r = x + delta;
-    erit = norm(x-r);
+    xvars = symvar(funs);
+    J = matlabFunction(jacobian(funs, xvars), vars={xvars});
+    b = matlabFunction(funs, vars={xvars});
+    delta = linsolve(J(x), -b(x));
+    r = x + delta';
+    erit = norm(x-r); % Error de la iteración
     while erit > ermax
-        x = num2cell(r);
-        delta = linsolve(J(x{:}), -b(x{:}));
-        x = cell2mat(x);
-        r = x + delta;
+        x = r;
+        delta = linsolve(J(r), -b(r));
+        r = r + delta'; % linsolve nos devuelve array columna (delta)
         erit = norm(x-r);
     end
 end
