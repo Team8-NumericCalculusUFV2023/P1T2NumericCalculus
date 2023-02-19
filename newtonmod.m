@@ -1,4 +1,4 @@
-function [xs,i] = newtonmod (f,xest,ermax)
+function [xs, i] = newtonmod (f,xest,ermax)
 % Se asume f función continua de una sola variable con derivadas continuas
     df1 = diff(f);
     df2 = diff(df1);
