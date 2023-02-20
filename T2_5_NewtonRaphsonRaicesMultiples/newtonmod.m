@@ -1,4 +1,4 @@
-function [xs, i] = newtonmod (f,xest,ermax)
+function [xs, i] = newtonmod (f, xest, ermax)
 % Se asume f función continua de una sola variable con derivadas continuas
     df1 = diff(f);
     df2 = diff(df1);
@@ -11,7 +11,7 @@ function [xs, i] = newtonmod (f,xest,ermax)
     df1xest = df1(xest);
     df2xest = df2(xest);
     
-    xs = xest - fxest * df1xest / (df2xest^2 - fxest * df2xest);
+    xs = xest - fxest * df1xest / (df1xest^2 - fxest * df2xest);
 
     erit = abs((xs - xest) / xest);
     i = 1;
@@ -22,10 +22,9 @@ function [xs, i] = newtonmod (f,xest,ermax)
         df1xest = df1(xest);
         df2xest = df2(xest);
 
-        xs = xest - fxest * df1xest / (df2xest^2 - fxest * df2xest);
+        xs = xest - fxest * df1xest / (df1xest^2 - fxest * df2xest);
 
         erit = abs((xs - xest) / xest);
         i = i+1;
-        fprintf("erit: %.6f => ermax: %.6f\n", erit, ermax);
     end
 end
