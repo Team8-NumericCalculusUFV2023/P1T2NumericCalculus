@@ -1,4 +1,4 @@
-[r, i] = ridder(fun, x1, x2, tol);
+function [r, i] = ridder(fun, x1, x2, tol)
 % Función que busca la raíz de una función en un intervalo 
 % por el método de Ridder.
 % fun = función dada en forma anónima fun = @(x)
@@ -8,34 +8,38 @@
 % r = raíz encontrada
 % Q = constante que se determina requiriendo que los puntos 
 % (x1, g1), (x2, g2) y (x3,g3) se encuentren en una línea recta
-
-g  = @(x) fun(x) * exp(x-xi);
-
-while x2 - x1 > tol 
-    x3 = (x1-x2)/2;
-    if fun(x1) - fun(x2) > 0
-        j = 0;
-    else
-        j = 1;
-    end
-
-    x4 = x3 + (-1)^j*(x3-x1)*fun(x3)/sqrt(fun(x3)^2-fun(x1)*fun(x2));
-
-    if g(x4) == (g(x3)-g(x2))/2
-        d1 = abs(x4-x1);
-        d2 = abs(x4-x2);
-        d3 = abs(x4-x3);
-        x1 = x4;
-        if d1 < d2 && d1 < d3
-            x2 = x1;
+    ehq = @(x) (fun(x3) + sqrt(fun(x3)^2-fun(x1)*fun(x2))) / fun(x2);
+    g  = @(x) fun(x) * ehq;
+    i = 1;
+    while abs(x2 - x1) > tol 
+        i = i + 1;
+        x3 = (x1-x2)/2;
+        if fun(x1) - fun(x2) > 0
+            j = 0;
+        else
+            j = 1;
         end
-        if d3 < d1 && d3 < d2
-            x2 = x3;
+    
+        x4 = x3 + (-1)^j*(x3-x1)*fun(x3)/sqrt(fun(x3)^2-fun(x1)*fun(x2));
+    
+        if g(x3) == (g(x1)+g(x2))/2
+            d1 = abs(x4-x1);
+            d2 = abs(x4-x2);
+            d3 = abs(x4-x3);
+            d = [d1, d2, d3];
+            x1 = x4;
+            if max(d) == d1
+                x2 = x1;
+            elseif max(d) == d3
+                x2 = x3;
+            end
+        else
+            break;
         end
-    else
-        break;
     end
+    r = x4;
 end
+
 
 
 
