@@ -8,6 +8,7 @@ function [r, i] = ridder(fun, x1, x2, tol)
 % r = raíz encontrada
 % Q = constante que se determina requiriendo que los puntos 
 % (x1, g1), (x2, g2) y (x3,g3) se encuentren en una línea recta
+    x3 = (x1-x2)/2;
     ehq = @(x) (fun(x3) + sqrt(fun(x3)^2-fun(x1)*fun(x2))) / fun(x2);
     g  = @(x) fun(x) * ehq;
     i = 1;
