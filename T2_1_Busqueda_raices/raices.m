@@ -1,4 +1,5 @@
 function x = raices(fun, a, b, dx)
+
 % Se asume: fun continua en (a, b); a < b; dx <= b-a
     x = [];
     while a+dx <= b
