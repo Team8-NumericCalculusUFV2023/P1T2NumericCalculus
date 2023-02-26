@@ -11,8 +11,8 @@ function r = nrsis(funs, x0, ermax)
 % r = vector fila de soluciones
 % El error se calculará como el valor absoluto de la diferencia relativa 
 % entre iteraciones.
-% Se calculará el jacobiano solo en la primera iteración, se asume que 
-% podemos despreciar los cambios de las siguientes iteraciones por ser
+% Se calculará la matriz jacobiana solo en la primera iteración, se asume 
+% que podemos despreciar los cambios de las siguientes iteraciones por ser
 % el punto x0 cercano a la solución.
     % Identificamos las variables simbólicas de las funciones entrada
     x = symvar(funs);
