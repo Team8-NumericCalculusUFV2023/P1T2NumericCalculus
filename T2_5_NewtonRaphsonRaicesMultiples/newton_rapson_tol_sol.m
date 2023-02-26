@@ -5,7 +5,7 @@ function [xs, i] = newton_rapson_tol_sol(f, xest, ermax)
 % Inputs: 
 % f = funcion simbólica
 % xest = punto próximo a la raíz
-% err = error máximo
+% ermax = error máximo
 % Outputs:
 % xs = raíz aproximada
 % i = número de iteraciones
