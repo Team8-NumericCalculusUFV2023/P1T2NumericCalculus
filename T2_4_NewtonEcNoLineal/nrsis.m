@@ -24,7 +24,8 @@ function r = nrsis(funs, x0, ermax)
     % Realizamos la misma operación con los términos independientes
     b = matlabFunction(funs, vars={x});
     % Resolvemos el sistema de ecuaciones J x = b
-    % Con J la matriz jacobiana en el punto x0
+    % Con J la matriz jacobiana en el punto x0 y b el vector columna de
+    % funciones evaluadas en el punto x0
     delta = linsolve(J(x0), -b(x0));
     % La nueva solución se obtendrá como la solución inicial más el delta
     % calculado anteriormente
