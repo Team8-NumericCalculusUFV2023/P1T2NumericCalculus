@@ -1,13 +1,14 @@
 function [r, i] = ridder(fun, x1, x2, tol)
 % Función que busca la raíz de una función en un intervalo 
 % por el método de Ridder.
+% INPUTS:
 % fun = función dada en forma anónima fun = @(x)
 % x1, x2 = intervalo donde se encuentra la raíz
 % tol = tolerancia calculada como |xi − xi-1|
+% OUTPUTS:
 % i = número de iteraciones
 % r = raíz encontrada
-% Q = constante que se determina requiriendo que los puntos 
-% (x1, g1), (x2, g2) y (x3,g3) se encuentren en una línea recta
+
     f1 = fun(x1); 
     f2 = fun(x2);
     if f1 * f2 < 0      % BOLZANO (comprobamos que haya al menos una raiz)
