@@ -1,4 +1,10 @@
 function x = raices(fun, a, b, dx)
+% INPUTS:
+% fun = función en forma anónima fun = @(x)
+% (a, b) = intervalo de inicio de búsqueda
+% dx = ancho del intervalo
+% OUTPUTS:
+% x = matriz de 2 columnas cuyas filas son las abscisas de los extremos de los intervalos donde se encuentra la raíz
 % Se asume: fun continua en (a, b); a < b; dx <= b-a
     x = [];
     % Se asegura que está dentro del intervalo
