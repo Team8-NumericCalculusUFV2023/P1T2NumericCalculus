@@ -1,11 +1,11 @@
 function r = Muller(fun, a, b, ermax)
 % Método de Muller para encontrar raíces de una función
 % Entradas:
-%   - fun: función de MATLAB que se desea encontrar sus raíces
-%   - a, b: límites del intervalo de búsqueda
-%   - ermax: error máximo permitido
+%   fun = función dada en forma anónima f=@(x) 
+%   (a, b) = intervalo donde se encuentra la raíz
+%   ermax = error máximo
 % Salida:
-%   - r: raíz de la función encontrada
+%   r = raíz de la función encontrada
 
 % Parámetros iniciales:
 %   - Puntos iniciales de la parábola:
@@ -40,7 +40,8 @@ while true
         return
     end
     
-    % Actualización de variables
+    % Vamos limitando el intervalo, otorgamos a las variables sus nuevos
+    % valores correspondientes
     x0 = x1;
     x1 = x2;
     x2 = raiz;
