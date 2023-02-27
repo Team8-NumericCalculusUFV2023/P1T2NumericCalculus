@@ -3,7 +3,7 @@ function [xs, i] = newton_rapson_tol_sol(f, xest, ermax)
 % dado un punto a próximo a ella.
 % El algoritmo utilizado es el Método de Newton-Rapson.
 % Inputs: 
-% f = funcion simbólica
+% f = función simbólica
 % xest = punto próximo a la raíz
 % ermax = error máximo
 % Outputs:
