@@ -1,0 +1,52 @@
+function r = Muller(fun, a, b, ermax)
+% Método de Muller para encontrar raíces de una función
+% Entradas:
+%   - fun: función de MATLAB que se desea encontrar sus raíces
+%   - a, b: límites del intervalo de búsqueda
+%   - ermax: error máximo permitido
+% Salida:
+%   - r: raíz de la función encontrada
+
+% Parámetros iniciales:
+%   - Puntos iniciales de la parábola:
+p0 = a;
+p1 = b;
+p2 = (a+b)/2;
+%   - Cálculo de los denominadores de las deltas
+h1 = p1 - p0;
+h2 = p2 - p1;
+%   - Cálculo de las deltas
+delta0 = (fun(p1) - fun(p0)) / h1;
+delta1 = (fun(p2) - fun(p1)) / h2;
+a = (delta1 - delta0) / (h2 + h1);
+
+% Iteraciones del método de Muller con bucle infinito
+while true
+    b = delta1 + h2 * a;
+    c = fun(p2);
+    aux = sqrt(b^2 - 4 * a * c); %raíz cuadrada del denominador de x3
+    if abs(b - aux) < abs(b + aux) %determinar la forma del denominador del error
+       den_error = b + aux;
+    else
+       den_error = b - aux;
+    end
+    error = -2*c /den_error;
+    raiz = p2 + error;
+    
+    % Condición de parada del bucle infinito 
+    if abs(error) < ermax
+        r = raiz;
+        return
+    end
+    
+    % Actualización de variables
+    p0 = p1;
+    p1 = p2;
+    p2 = raiz;
+    h1 = p1 - p0;
+    h2 = p2 - p1;
+    delta0 = (fun(p1) - fun(p0)) / h1;
+    delta1 = (fun(p2) - fun(p1)) / h2;
+    a = (delta1 - delta0) / (h2 + h1);
+end
+end
