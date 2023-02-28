@@ -1,6 +1,6 @@
 function x = raices(fun, a, b, dx)
 % Función que obtiene las abscisas de los intervalos donde se encuentran 
-% todas las raíces de una función f(x) en un intervalo dado 
+% todas las raices de una función f(x) en un intervalo dado 
 % (a, b) llamando a la función raizbus
 % INPUTS:
 %   -fun = función en forma anónima fun = @(x)
