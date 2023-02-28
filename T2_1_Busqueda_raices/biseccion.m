@@ -1,37 +1,30 @@
-function [xs, i] = biseccion(y, a, b, ermax)
-% Función que permite calcular de manera aproximada una raíz de una función 
-% dado un intervalo (a, b) que la contenga.
-% El algoritmo utilizado es el Método de la bisección.
-% Inputs:
-% y = función en forma anónima
-% a = extremo menor del intervalo
-% b = extremo mayor del intervalo
-% ermax = error máximo admitido 
-% Outputs:
-% xs = raíz calculada
-% i = número de iteraciones
-% El error se calculará como el valor absoluto de la imagen de la raíz 
-% aproximada.
-    % Comprobamos que el intervalo dado contiene una raíz
-    if y(a)*y(b) < 0
-        % Inicialización de variables
-        xs = (a+b) / 2;
-        i = 1;
-        ys = y(xs);
-        while abs(ys) > ermax && ys ~= 0
-            % Si el producto de imágenes da negativo intercambiaremos el
-            % extremo del intervalo que corresponda con el punto medio
-            % convergiendo a la raíz al reducir el rango de búsqueda
-            if y(a) * ys < 0
-                b = xs;
-            else
-                a = xs;
-            end
-            xs = (a+b) / 2;
-            ys = y(xs);
-            i = i + 1;
-        end
-    else
-        disp("Este intervalo no contiene raices.")
+function x = raices(fun, a, b, dx)
+% Función que obtiene las abscisas de los intervalos donde se encuentran 
+% todas las raíces de una función f(x) en un intervalo dado 
+% (a, b) llamando a la función raizbus
+% INPUTS:
+%   -fun = función en forma anónima fun = @(x)
+%   -(a, b) = intervalo de inicio de búsqueda
+%   -dx = ancho del intervalo
+% OUTPUTS:
+%   -x = matriz de 2 columnas cuyas filas son las abscisas de los extremos 
+% de los intervalos donde se encuentra la raíz
+% Se asume: fun continua en (a, b); a < b; dx <= b-a
+    x = [];
+    % Se asegura que está dentro del intervalo
+    while a+dx <= b
+        % Al usar la función raizbus se encuentra el intervalo más próximo
+        % a la raíz
+        [x1, x2] = raizbus(fun, a, a+dx, dx);
+        % Se guardan los límites en la matriz 
+        x(end+1, :) = [x1, x2];% No conocemos cuantas hay => redimensionar
+        % 'a' avanza hacia b
+        a = a+dx;        
+    end
+    % En caso de sobrepasar 'a' a 'b' se comprueba el último 
+    % intervalo (a,b) si hay una raíz
+    if a~=b
+        [x1, x2] = raizbus(fun, a, a+dx, dx);
+        x(end+1, :) = [x1, x2];
     end
 end

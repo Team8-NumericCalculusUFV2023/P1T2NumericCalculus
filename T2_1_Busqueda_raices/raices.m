@@ -1,10 +1,14 @@
 function x = raices(fun, a, b, dx)
+% Función que obtiene las abscisas de los intervalos donde se encuentran 
+% todas las raíces de una función f(x) en un intervalo dado 
+% (a, b) llamando a la función raizbus
 % INPUTS:
-% fun = función en forma anónima fun = @(x)
-% (a, b) = intervalo de inicio de búsqueda
-% dx = ancho del intervalo
+%   -fun = función en forma anónima fun = @(x)
+%   -(a, b) = intervalo de inicio de búsqueda
+%   -dx = ancho del intervalo
 % OUTPUTS:
-% x = matriz de 2 columnas cuyas filas son las abscisas de los extremos de los intervalos donde se encuentra la raíz
+%   -x = matriz de 2 columnas cuyas filas son las abscisas de los extremos 
+% de los intervalos donde se encuentra la raíz
 % Se asume: fun continua en (a, b); a < b; dx <= b-a
     x = [];
     % Se asegura que está dentro del intervalo

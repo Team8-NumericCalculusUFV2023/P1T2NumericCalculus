@@ -4,13 +4,13 @@ function [xs, i] = newtonmod (f, xest, ermax)
 % El algoritmo utilizado es el Método de Newton-Rapson, no obstante se ha
 % modificado definiendo una nueva función (cociente de la función original 
 % y su derivada) que tendrá las mismas raices que la función de entrada.
-% Inputs: 
-% f = funcion simbólica
-% xest = punto próximo a la raíz
-% ermax = error máximo
-% Outputs:
-% xs = raíz aproximada
-% i = número de iteraciones
+% INPUTS 
+%   -f = funcion simbólica
+%   -xest = punto próximo a la raíz
+%   -ermax = error máximo
+% OUTPUTS
+%   -xs = raíz aproximada
+%   -i = número de iteraciones
 % El error se calculará como el valor absoluto de la diferencia relativa 
 % entre iteraciones.
     % Calculamos la primera y segunda derivada de f
