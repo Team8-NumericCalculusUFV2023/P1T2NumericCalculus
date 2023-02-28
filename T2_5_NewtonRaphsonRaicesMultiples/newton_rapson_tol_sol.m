@@ -2,13 +2,13 @@ function [xs, i] = newton_rapson_tol_sol(f, xest, ermax)
 % Función que permite calcular de manera aproximada una raíz de una función 
 % dado un punto a próximo a ella.
 % El algoritmo utilizado es el Método de Newton-Rapson.
-% Inputs: 
-% f = función simbólica
-% xest = punto próximo a la raíz
-% ermax = error máximo
-% Outputs:
-% xs = raíz aproximada
-% i = número de iteraciones
+% INPUTS:
+%   -f = función simbólica
+%   -xest = punto próximo a la raíz
+%   -ermax = error máximo
+% OUTPUTS:
+%   -xs = raíz aproximada
+%   -i = número de iteraciones
 % El error se calculará como el valor absoluto de la diferencia relativa 
 % entre iteraciones.
     % Se calcula la derivada con la función diff() y posteriormente se 
