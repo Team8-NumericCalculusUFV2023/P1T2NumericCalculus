@@ -46,8 +46,3 @@ function [r, i] = ridder(fun, x1, x2, tol)
         disp("Este intervalo no contiene raices.")
     end
 end
-
-
-
-
-
