@@ -13,7 +13,7 @@ function [xs, i] = biseccion(y, a, b, ermax)
 % El error se calculará como el valor absoluto de la imagen de la raíz 
 % aproximada.
     % Comprobamos que el intervalo dado contiene una raíz
-    if y(a)*y(b) < 0
+    if y(a)*y(b) <= 0
         % Inicialización de variables
         xs = (a+b) / 2;
         i = 1;

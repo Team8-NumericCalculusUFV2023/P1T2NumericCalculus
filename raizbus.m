@@ -18,7 +18,7 @@ function [x1, x2] = raizbus(fun, a, b, dx)
         [x1, x2] = deal(a, a+dx);
         % Con esta condición se asegura que x2 permanece en el intervalo
         % original     
-        while x2 <= b 
+        while x2 < b 
             % Si el subintervalo se encuentra la raíz se sale del bucle
             if fun(x1) * fun(x2) <= 0
                 return
@@ -29,8 +29,8 @@ function [x1, x2] = raizbus(fun, a, b, dx)
             end
         end
         % Si se sale del bucle significa que la raíz está en el último
-        % subintervalo de tamaño menor que dx, es decir x2 > b
-        % Para ajustarnos al intervalo de entrada igualamos x2 al final
+        % subintervalo de tamaño menor o igual que dx, es decir x2 >= b
+        % Para ajustarnos al intervalo de entrada igualamos x2 a b
         x2 = b;
     else
         % Si no se encuentra ninguna raíz le damos el valor NaN a 
