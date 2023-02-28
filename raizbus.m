@@ -28,14 +28,13 @@ function [x1, x2] = raizbus(fun, a, b, dx)
                 [x1, x2] = deal(x2, x2+dx);
             end
         end
-        % Si se ha encontrado la raíz en el subintervalo y x2 esta 
-        % fuera del intervalo se le asigna b 
-        if x2 ~= b
-            x2 = b;
-        end
-    % Si no se encuentra ninguna raíz le damos el valor NaN a 
-    % los límites del  intervalo
+        % Si se sale del bucle significa que la raíz está en el último
+        % subintervalo de tamaño menor que dx, es decir x2 > b
+        % Para ajustarnos al intervalo de entrada igualamos x2 al final
+        x2 = b;
     else
-         [x1, x2] = deal(NaN);
+        % Si no se encuentra ninguna raíz le damos el valor NaN a 
+        % los límites del  intervalo
+        [x1, x2] = deal(NaN);
     end
 end

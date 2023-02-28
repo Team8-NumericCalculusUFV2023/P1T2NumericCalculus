@@ -11,20 +11,20 @@ function x = raices(fun, a, b, dx)
 % de los intervalos donde se encuentra la raíz
 % Se asume: fun continua en (a, b); a < b; dx <= b-a
     x = [];
-    % Se asegura que está dentro del intervalo
-    while a+dx <= b
-        % Al usar la función raizbus se encuentra el intervalo más próximo
-        % a la raíz
+    % La forma de proceder será desplazar el extremo 'a' del intervalo 
+    % hacia la derecha en pasos de longitud dx
+    while a+dx < b
+        % Al usar la función raizbus se encuentra el subintervalo que
+        % contiene a la raíz
         [x1, x2] = raizbus(fun, a, a+dx, dx);
-        % Se guardan los límites en la matriz 
+        % Se guardan los límites en la matriz x
         x(end+1, :) = [x1, x2];% No conocemos cuantas hay => redimensionar
-        % 'a' avanza hacia b
+        % 'a' avanza hacia b en pasos dx
         a = a+dx;        
     end
-    % En caso de sobrepasar 'a' a 'b' se comprueba el último 
-    % intervalo (a,b) si hay una raíz
-    if a~=b
-        [x1, x2] = raizbus(fun, a, a+dx, dx);
-        x(end+1, :) = [x1, x2];
-    end
+    % Si se sale del bucle es porque 'a+dx' adelanta o iguala a 'b' y se 
+    % comprueba el último subintervalo (a, b)
+    % (En vez de (a, a+dx) que se sale del inicial)
+    [x1, x2] = raizbus(fun, a, b, dx);
+    x(end+1, :) = [x1, x2];
 end
