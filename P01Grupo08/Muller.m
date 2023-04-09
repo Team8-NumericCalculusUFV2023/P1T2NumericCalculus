@@ -1,10 +1,10 @@
 function r = Muller(fun, a, b, ermax)
 % Método de Muller para encontrar raíces de una función
-% Entradas:
+% INPUTS:
 %   fun = función dada en forma anónima f=@(x) 
 %   (a, b) = intervalo donde se encuentra la raíz
 %   ermax = error máximo
-% Salida:
+% OUTPUT:
 %   r = raíz de la función encontrada
 
 % Parámetros iniciales:

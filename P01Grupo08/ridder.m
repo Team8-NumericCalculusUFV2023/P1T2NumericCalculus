@@ -2,12 +2,12 @@ function [r, i] = ridder(fun, x1, x2, tol)
 % Función que busca la raíz de una función en un intervalo 
 % por el método de Ridder.
 % INPUTS:
-% fun = función dada en forma anónima fun = @(x)
-% x1, x2 = intervalo donde se encuentra la raíz
-% tol = tolerancia calculada como |xi − xi-1|
+%   -fun = función dada en forma anónima fun = @(x)
+%   -x1, x2 = intervalo donde se encuentra la raíz
+%   -tol = tolerancia calculada como |xi − xi-1|
 % OUTPUTS:
-% i = número de iteraciones
-% r = raíz encontrada
+%   -i = número de iteraciones
+%   -r = raíz encontrada
 
     f1 = fun(x1); 
     f2 = fun(x2);
@@ -46,9 +46,3 @@ function [r, i] = ridder(fun, x1, x2, tol)
         disp("Este intervalo no contiene raices.")
     end
 end
-
-
-
-
-
-
