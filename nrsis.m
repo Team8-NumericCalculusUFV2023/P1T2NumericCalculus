@@ -4,11 +4,11 @@ function r = nrsis(funs, x0, ermax)
 % El algoritmo utilizado es el Método de Newton-Raphson, no obstante se ha
 % modificado para resolver un sistema de n ecuaciones no lineales.
 % INTPUTS:
-%   -funs = vector columna que contiene las funciones en forma simbólica
-%   -x0 = vector fila de solución inicial
-%   -ermax = error máximo
+%   funs = vector columna que contiene las funciones en forma simbólica
+%   x0 = vector fila de solución inicial
+%   ermax = error máximo
 % OUTPUTS:
-%   -r = vector fila de soluciones
+%   r = vector fila de soluciones
 % El error se calculará como el valor absoluto de la diferencia relativa 
 % entre iteraciones.
 % Se calculará la matriz jacobiana solo en la primera iteración, se asume 

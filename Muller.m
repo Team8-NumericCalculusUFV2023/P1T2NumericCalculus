@@ -6,49 +6,58 @@ function r = Muller(fun, a, b, ermax)
 %   ermax = error máximo
 % OUTPUT:
 %   r = raíz de la función encontrada
-
-% Parámetros iniciales:
-%   - Puntos iniciales de la parábola:
-x0 = a;
-x1 = b;
-x2 = (a+b)/2;
-%   - Cálculo de los denominadores de las deltas
-h1 = x1 - x0;
-h2 = x2 - x1;
-%   - Cálculo de las deltas
-delta0 = (fun(x1) - fun(x0)) / h1;
-delta1 = (fun(x2) - fun(x1)) / h2;
-a = (delta1 - delta0) / (h2 + h1);
-
-% Iteraciones del método de Muller con bucle infinito
-while true
-    b = delta1 + h2 * a;
-    c = fun(x2);
-    aux = sqrt(b^2 - 4 * a * c); %raíz cuadrada del denominador de x3
-    if abs(b - aux) < abs(b + aux) %determinar la forma del denominador del error
-       den_error = b + aux;
-    else
-       den_error = b - aux;
+% El error se calcula como el valor absoluto de la diferencia relativa
+% entre iteraciones.
+    % Puntos iniciales de la parábola:
+    x0 = a;
+    x1 = (a + b) / 2;
+    x2 = b;
+    % Cálculo de los denominadores de las deltas
+    h0 = x1 - x0;
+    h1 = x2 - x1;
+    % Cálculo de las deltas
+    f0 = fun(x0); f1 = fun(x1); f2 = fun(x2);
+    delta0 = (f1 - f0) / h0;
+    delta1 = (f2 - f1) / h1;
+    a = (delta1 - delta0) / (h1 + h0);
+    b = a * h1 + delta1;
+    c = f2;
+    % x3 será una de las raices de la parábola
+    % Se elige la raíz tomando el signo del denominador igual al de b 
+    % con el fin de obtener el denominador más grande y que x3 este lo más 
+    % cerca de x2
+    x3 = x2 + -2*c/(b+(-1)^(sign(b)<0)*sqrt(b^2-4*a*c));
+    % El proceso se repite hasta que el error sea menor que el permitido
+    while abs((x3-x2)/x3) >= ermax && fun(x3) ~= 0
+        % De los 3 valores x0, x1, x2 se debe descartar uno
+        % Si x3 es real se elimina el de mayor distancia a x3
+        if isreal(x3)
+            dist = [abs(x3-x0), abs(x3-x1), abs(x3-x2)];
+            [~, i] = max(dist);
+            x = [x0, x1, x2];
+            x(i) = [];
+            x0 = x(1);
+            x1 = x(2);
+        else
+            x0 = x1;
+            x1 = x2;
+        end
+        x2 = x3;
+            % Cálculo de los denominadores de las deltas
+        h0 = x1 - x0;
+        h1 = x2 - x1;
+        % Cálculo de las deltas
+        f0 = fun(x0); f1 = fun(x1); f2 = fun(x2);
+        delta0 = (f1 - f0) / h0;
+        delta1 = (f2 - f1) / h1;
+        a = (delta1 - delta0) / (h1 + h0);
+        b = a * h1 + delta1;
+        c = f2;
+        % x3 será una de las raices de la parábola
+        % Se elige la raíz tomando el signo del denominador igual al de b 
+        % con el fin de obtener el denominador más grande y que x3 este lo más 
+        % cerca de x2
+        x3 = x2 + -2*c/(b+(-1)^(sign(b)<0)*sqrt(b^2-4*a*c));
     end
-    error = -2*c /den_error; %cálculo del error
-    raiz = x2 + error; %candidato a raíz
-    
-    % Condición de parada del bucle infinito -> determinamos si el
-    % candidato a raíz es válido según el error 
-    if abs(error) < ermax 
-        r = raiz;
-        return
-    end
-    
-    % Vamos limitando el intervalo, otorgamos a las variables sus nuevos
-    % valores correspondientes
-    x0 = x1;
-    x1 = x2;
-    x2 = raiz;
-    h1 = x1 - x0;
-    h2 = x2 - x1;
-    delta0 = (fun(x1) - fun(x0)) / h1;
-    delta1 = (fun(x2) - fun(x1)) / h2;
-    a = (delta1 - delta0) / (h2 + h1);
-end
+    r = x3;
 end
