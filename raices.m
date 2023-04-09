@@ -3,14 +3,14 @@ function x = raices(fun, a, b, dx)
 % todas las raices de una función f(x) en un intervalo dado 
 % (a, b) llamando a la función raizbus
 % INPUTS:
-%   -fun = función en forma anónima fun = @(x)
-%   -(a, b) = intervalo de inicio de búsqueda
-%   -dx = ancho del intervalo
+%   fun = función en forma anónima fun = @(x)
+%   (a, b) = intervalo de inicio de búsqueda
+%   dx = ancho del intervalo
 % OUTPUTS:
-%   -x = matriz de 2 columnas cuyas filas son las abscisas de los extremos 
+%   x = matriz de 2 columnas cuyas filas son las abscisas de los extremos 
 % de los intervalos donde se encuentra la raíz
 % Se asume: fun continua en (a, b); a < b; dx <= b-a
-    x = [];
+    x = [NaN, NaN];
     % La forma de proceder será desplazar el extremo 'a' del intervalo 
     % hacia la derecha en pasos de longitud dx
     while a+dx < b
@@ -27,4 +27,6 @@ function x = raices(fun, a, b, dx)
     % (En vez de (a, a+dx) que se sale del inicial)
     [x1, x2] = raizbus(fun, a, b, dx);
     x(end+1, :) = [x1, x2];
+    % Finalmente se eliminan los valores NaN de la matriz de resultados
+    x = rmmissing(x);
 end

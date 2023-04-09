@@ -2,11 +2,11 @@ function [x1, x2] = raizbus(fun, a, b, dx)
 % Función para obtener un intervalo de ancho dx que contenga una raíz 
 % de la función f(x) partiendo de un intervalo (a,b) con a < b
 % INPUTS:
-%   -fun = función en forma anónima fun = @(x)
-%   -(a, b) = intervalo de inicio de búsqueda
-%   -dx = ancho del intervalo
+%   fun = función en forma anónima fun = @(x)
+%   (a, b) = intervalo de inicio de búsqueda
+%   dx = ancho del intervalo
 % OUTPUTS:
-%   -[x1, x2] = intervalo de ancho dx donde se encuentra una raíz de f(x)
+%   [x1, x2] = intervalo de ancho dx donde se encuentra una raíz de f(x)
 % Se asume: fun continua en (a, b); a < b; dx <= b-a
 % Se usa el teorema de Bolzano para saber si existe una raíz en el
 % intervalo

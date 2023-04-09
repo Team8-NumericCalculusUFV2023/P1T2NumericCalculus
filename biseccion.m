@@ -3,13 +3,13 @@ function [xs, i] = biseccion(y, a, b, ermax)
 % dado un intervalo (a, b) que la contenga.
 % El algoritmo utilizado es el Método de la bisección.
 % INPUTS:
-%   -y = función en forma anónima
-%   -a = extremo menor del intervalo
-%   -b = extremo mayor del intervalo
-%   -ermax = error máximo admitido 
+%   y = función en forma anónima
+%   a = extremo menor del intervalo
+%   b = extremo mayor del intervalo
+%   ermax = error máximo admitido 
 % OUTPUTS:
-%   -xs = raíz calculada
-%   -i = número de iteraciones
+%   xs = raíz calculada
+%   i = número de iteraciones
 % El error se calculará como el valor absoluto de la imagen de la raíz 
 % aproximada.
     % Comprobamos que el intervalo dado contiene una raíz
