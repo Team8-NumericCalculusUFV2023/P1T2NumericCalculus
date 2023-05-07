@@ -1,63 +1,58 @@
-function r = Muller(fun, a, b, ermax)
-% Método de Muller para encontrar raíces de una función
-% INPUTS:
-%   fun = función dada en forma anónima f=@(x) 
-%   (a, b) = intervalo donde se encuentra la raíz
-%   ermax = error máximo
-% OUTPUT:
-%   r = raíz de la función encontrada
-% El error se calcula como el valor absoluto de la diferencia relativa
-% entre iteraciones.
-    % Puntos iniciales de la parábola:
+function [r] = Muller(fun, a, b, ermax)
+%  El método Muller  es un algoritmo numérico que utiliza tres 
+%  puntos en el intervalo para generar una parábola que aproxima 
+%  la función, y luego utiliza la fórmula de la parábola para 
+%  encontrar una nueva aproximación de la raíz.
+% Valores de entrada:
+% fun = sunción dada en forma anónima f = @(x)
+% (a, b) = intervalo donde se encuentra la raíz
+% ermax = error máximo
+% Valores de salida:
+% r: raices del polinomio
+
+    % Cuerpo de la función:
     x0 = a;
-    x1 = (a + b) / 2;
-    x2 = b;
-    % Cálculo de los denominadores de las deltas
-    h0 = x1 - x0;
-    h1 = x2 - x1;
-    % Cálculo de las deltas
-    f0 = fun(x0); f1 = fun(x1); f2 = fun(x2);
-    delta0 = (f1 - f0) / h0;
-    delta1 = (f2 - f1) / h1;
-    a = (delta1 - delta0) / (h1 + h0);
-    b = a * h1 + delta1;
-    c = f2;
-    % x3 será una de las raices de la parábola
-    % Se elige la raíz tomando el signo del denominador igual al de b 
-    % con el fin de obtener el denominador más grande y que x3 este lo más 
-    % cerca de x2
-    x3 = x2 + -2*c/(b+(-1)^(sign(b)<0)*sqrt(b^2-4*a*c));
-    % El proceso se repite hasta que el error sea menor que el permitido
-    while abs((x3-x2)/x3) >= ermax && fun(x3) ~= 0
-        % De los 3 valores x0, x1, x2 se debe descartar uno
-        % Si x3 es real se elimina el de mayor distancia a x3
-        if isreal(x3)
-            dist = [abs(x3-x0), abs(x3-x1), abs(x3-x2)];
-            [~, i] = max(dist);
-            x = [x0, x1, x2];
-            x(i) = [];
+    x1 = b;
+    x2 = (a + b) / 2;
+    
+    er = 1;
+    
+    while er > ermax
+        % Primero se calcula los coeficientes de la parabola:
+        h0 = x1 - x0; 
+        h1 = x2 - x1;
+        d0 = (fun(x1) - fun(x0)) / h0;
+        d1 = (fun(x2) - fun(x1)) / h1;
+    
+        a = (d1 - d0) / (h1 + h0);
+        b =  a * h1 + d1;
+        c = fun(x2);
+    
+        % Se calcula donde la parábola corta el eje x y guardamos la solución
+        % más cercana a x2:
+        if b > 0
+            r = x2 - (2 * c) / (b + sqrt(b^2 - 4 * a * c));
+        else
+            r = x2 - (2 * c) / (b - sqrt(b^2 - 4 * a * c));
+        end
+    
+        % Se calcula el error:
+        er = abs((r - x2)/r);
+    
+        % Se reasignan los valores de x en función de si la solución es
+        % compleja o real:
+        if isreal(r)
+            x = [x0 x1 x2]; 
+            % Se guarda el valor más proximo a r quitando el más lejano
+            [~,ps] = max(abs(r - x));
+            x(ps) = [];
             x0 = x(1);
             x1 = x(2);
-        else
-            x0 = x1;
-            x1 = x2;
+            x2 = r;
+        else % Se emplea un método secuencial
+            x0 = x1; 
+            x1 = x2; 
+            x2 = r;
         end
-        x2 = x3;
-            % Cálculo de los denominadores de las deltas
-        h0 = x1 - x0;
-        h1 = x2 - x1;
-        % Cálculo de las deltas
-        f0 = fun(x0); f1 = fun(x1); f2 = fun(x2);
-        delta0 = (f1 - f0) / h0;
-        delta1 = (f2 - f1) / h1;
-        a = (delta1 - delta0) / (h1 + h0);
-        b = a * h1 + delta1;
-        c = f2;
-        % x3 será una de las raices de la parábola
-        % Se elige la raíz tomando el signo del denominador igual al de b 
-        % con el fin de obtener el denominador más grande y que x3 este lo más 
-        % cerca de x2
-        x3 = x2 + -2*c/(b+(-1)^(sign(b)<0)*sqrt(b^2-4*a*c));
     end
-    r = x3;
 end
